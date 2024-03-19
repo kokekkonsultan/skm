@@ -1,0 +1,176 @@
+<!-- ======================================= TAMBAH PERTANYAAN UNSUR ==================================================== -->
+<div class="modal fade" id="tambah1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content border border-warning">
+            <div class="modal-header bg-warning">
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Pertanyaan Unsur</h5>
+            </div>
+            <div class="modal-body">
+                <form
+                    action="{{base_url() . $ci->session->userdata('username') . '/' . $ci->uri->segment(2) . '/form-survei/add-pertanyaan-unsur'}}"
+                    class="form_default" method="POST">
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label
+                        font-weight-bold">Unsur Pelayanan <span style="color: red;">*</span></label>
+                        <div class="col-sm-9">
+                            @php
+                            echo form_input($nama_unsur_pelayanan);
+                            @endphp
+                            <small>
+                                Menurut Permenpan dan RB, unsur SKM terbagi 9 unsur antara lain: 1) Persyaratan 2)
+                                Sistem, Mekanisme, dan Prosedur 3) Waktu Penyelesaian 4) Biaya/Tarif 5) Produk
+                                Spesifikasi Jenis Pelayanan 6) Kompetensi Pelaksana 7) Perilaku Pelaksana 8)
+                                Penanganan
+                                Pengaduan, Saran dan Masukan 9) Sarana dan prasarana
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label font-weight-bold">Sub Unsur Pelayanan <span
+                                style="color: red;">*</span></label>
+                        <div class="col-sm-9">
+                            <div><label>
+                                    <input type="radio" name="is_sub_unsur_pelayanan" id="default" value="2"
+                                        class="custom" required>&nbsp Tanpa Sub Unsur</label><br>
+                            </div>
+                            <div><label>
+                                    <input type="radio" name="is_sub_unsur_pelayanan" id="custom" value="1"
+                                        class="custom">&nbsp Dengan Sub Unsur</label><br>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- //DENGAN SUB UNSUR -->
+                    <div id="dengan_sub_unsur" style="display: none;">
+                        <div class="alert alert-custom alert-notice alert-light-info fade show mb-10" role="alert">
+                            <div class="alert-icon"><i class="flaticon-warning"></i></div>
+                            <div class="alert-text"> <span>Silahkan simpan terlebih dahulu lalu lanjutkan mengisi
+                                    pada
+                                    menu
+                                    <b>Tambah Pertanyaan Sub
+                                        Unsur Pelayanan</b>.</span>
+                            </div>
+                            <div class="alert-close">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true"><i class="ki ki-close"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TANPA SUB UNSUR -->
+                    <div id="tanpa_sub_unsur" style="display: none;">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label font-weight-bold">Pertanyaan Unsur <span
+                                    style="color: red;">*</span></label>
+                            <div class="col-sm-9">
+                                @php
+                                echo form_textarea($isi_pertanyaan_unsur);
+                                @endphp
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label font-weight-bold">Pilihan Jawaban <span
+                                    style="color: red;">*</span></label>
+                            <div class="col-sm-9">
+                                <div>
+                                    <label><input type="radio" name="jenis_pilihan_jawaban" id="jenis_pilihan_jawaban"
+                                            value="1" class="jawaban">
+                                        &nbsp 2
+                                        Pilihan
+                                        Jawaban</label><br>
+                                </div>
+                                <div>
+                                    <label><input type="radio" name="jenis_pilihan_jawaban" id="jenis_pilihan_jawaban"
+                                            value="2" class="jawaban">
+                                        &nbsp 4
+                                        Pilihan
+                                        Jawaban</label><br>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PILIHAN JAWABAN 2 -->
+                        <div name="2_jawaban" class="2_jawaban" style="display:none">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Pilihan Jawaban 1 <span
+                                        style="color: red;">*</span></label>
+                                <div class="col-sm-9">
+                                    @php
+                                    echo form_input($pilihan_jawaban_1);
+                                    @endphp
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Pilihan Jawaban 2 <span
+                                        style="color: red;">*</span></label>
+                                <div class="col-sm-9">
+                                    @php
+                                    echo form_input($pilihan_jawaban_2);
+                                    @endphp
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PILIHAN JAWABAN 4 -->
+                        <div class="4_jawaban" name="4_jawaban" style="display:none">
+                            <datalist id="data_mahasiswa">
+                                <?php
+                                foreach ($pilihan->result() as $d) {
+                                    echo "<option value='$d->id'>$d->pilihan_1</option>";
+                                }
+                                ?>
+                            </datalist>
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Pilihan Jawaban 1 <span
+                                        style="color: red;">*</span></label>
+                                <div class="col-sm-9">
+                                    <input class="form-control pilihan" list="data_mahasiswa" type="text"
+                                        name="pilihan_jawaban[]" id="id" placeholder="Masukkan pilihan jawaban anda .."
+                                        onchange="return autofill();" autofocus autocomplete='off'>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Pilihan Jawaban 2 <span
+                                        style="color: red;">*</span></label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control pilihan" name="pilihan_jawaban[]"
+                                        id="pilihan_2">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Pilihan Jawaban 3 <span
+                                        style="color: red;">*</span></label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control pilihan" name="pilihan_jawaban[]"
+                                        id="pilihan_3">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Pilihan Jawaban 4 <span
+                                        style="color: red;">*</span></label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control pilihan" name="pilihan_jawaban[]"
+                                        id="pilihan_4">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary tombolDefault">Simpan</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

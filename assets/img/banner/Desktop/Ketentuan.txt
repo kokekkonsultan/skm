@@ -1,0 +1,11 @@
+
+1. (PAKET 1) 1 User, 1 kuesioner, 
+   (PAKET 2) 1 User, 3 kuesioner, (Dishub)
+   (PAKET 3) 1 User, 5 kuesioner,
+   (PAKET 4) 2 User, 10 kuesioner,
+   (PAKET 5) 3 User, 20 kuesioner,
+
+2. Membuat Link Survei Melalui Scan QRCode.
+
+3.
+

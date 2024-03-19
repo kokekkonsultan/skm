@@ -1,0 +1,3 @@
+pertanyaan_unsur_survei = view,controller
+pertanyaan_terbuka_survei = view,controller
+survei = view,controller
